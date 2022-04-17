@@ -1,0 +1,14 @@
+# Intellij Idea
+.idea/
+**/*.iml
+
+# Maven
+**/target/
+
+# Allure
+**/.allure
+
+**/report/
+**/temp/
+
+
