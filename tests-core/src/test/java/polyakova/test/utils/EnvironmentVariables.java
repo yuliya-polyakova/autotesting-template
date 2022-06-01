@@ -3,7 +3,7 @@ package polyakova.test.utils;
 import java.util.ResourceBundle;
 
 /**
- * Переменные для тестов
+ * Variables for tests
  *
  * @author Iuliia Poliakova
  */
@@ -12,10 +12,10 @@ public class EnvironmentVariables {
     private static ResourceBundle config;
 
     /**
-     * Считать значение из конфигурационного файла
+     * Read value from configuration file
      *
-     * @param name наименование свойства
-     * @return значение
+     * @param name property name
+     * @return value
      */
     public static String getString(String name) {
         if (config == null) {
@@ -26,20 +26,20 @@ public class EnvironmentVariables {
     }
 
     /**
-     * Считать числовое значение из конфигурационного файла
+     * Read numeric value from configuration file
      *
-     * @param name наименование свойства
-     * @return значение
+     * @param name property name
+     * @return value
      */
     public static int getInt(String name) {
         return Integer.parseInt(getString(name));
     }
 
     /**
-     * Считать числовое значение из конфигурационного файла
+     * Read numeric value from configuration file
      *
-     * @param name наименование свойства
-     * @return значение
+     * @param name property name
+     * @return value
      */
     public static long getLong(String name) {
         return Long.parseLong(getString(name));

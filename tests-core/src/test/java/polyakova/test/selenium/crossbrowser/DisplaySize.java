@@ -3,7 +3,7 @@ package polyakova.test.selenium.crossbrowser;
 import org.openqa.selenium.Dimension;
 
 /**
- * Список стандартных разрешений
+ * List of standard resolutions
  *
  * @author Iuliia Poliakova
  * @see <a href="https://en.wikipedia.org/wiki/Display_resolution">Display_resolution</a>

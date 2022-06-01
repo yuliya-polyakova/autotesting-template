@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 /**
- * Вспомогательные методы генерации данных
+ * Helper methods for generating data
  *
  * @author Iuliia Poliakova
  */
@@ -220,7 +220,7 @@ public class RandomDataUtils {
     }
 
     /**
-     * Получить случайную дату между началом и концом периода
+     * Get random date between start and end of date
      *
      * @param startDate  начало периода
      * @param finishDate конец периода

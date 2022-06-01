@@ -3,40 +3,48 @@ package polyakova.test.demo.selenium;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import polyakova.test.demo.selenium.page.GazprombankRuHomePage;
 import polyakova.test.demo.selenium.page.GoogleComHomePage;
 import polyakova.test.demo.selenium.page.GoogleComSearchResultPage;
+import polyakova.test.demo.selenium.page.QametaIoHomePage;
 import polyakova.test.selenium.UIAbstractTest;
+import polyakova.test.utils.EnvironmentVariables;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * UI тестирование
+ * UI Testing
  *
  * @author Iuliia Poliakova
  */
-@DisplayName("Пример selenium теста")
+@DisplayName("Example selenium test")
 public class TestSelenium extends UIAbstractTest {
 
+    public final String QAMETA_URL = EnvironmentVariables.getString("ui.qameta.url");
+
     /**
-     * Пример:
+     * Example:
      * <ol>
-     *     <li>Запустить Chrome</li>
-     *     <li>Открыть https://www.google.com/</li>
-     *     <li>Написать в строке поиска «ufpghjv,fyr» ("газпромбанк" в английской раскладке)</li>
-     *     <li>Запустить поиск</li>
-     *     <li>Проверить, что результатах поиска есть https://www.gazprombank.ru</li>
-     *     <li>Перейти на сайт https://www.gazprombank.ru</li>
-     *     <li>Проверить в блоке «Курс обмена в интернет-банке», что курс продажи больше курса покупки, для USD и для EUR.</li>
+     *     <li>run Chrome</li>
+     *     <li>open https://www.google.com/</li>
+     *     <li>Enter in search input «alluretestops»</li>
+     *     <li>run searching</li>
+     *     <li>Check that result od searching has "https://qameta.io/"</li>
+     *     <li>open site https://qameta.io/</li>
+     *     <li>Check in the "Pricing" block that the price of an account in the cloud is sold  higher than in the server.</li>
      * </ol>
      */
     @Test
-    @DisplayName("Проверка курса валют")
+    @DisplayName("Check account price")
     @Tag("cross_browser")
     public void test() throws Exception {
         final GoogleComHomePage googleComHomePage = GoogleComHomePage.openGoogleCom(driver);
-        googleComHomePage.setSearchText("ufpghjv,fyr"); // «ufpghjv,fyr» ("газпромбанк" в английской раскладке)
+        googleComHomePage.setSearchText("alluretestops");
         final GoogleComSearchResultPage googleComSearchResultPage = googleComHomePage.clickSearchButton();
-        final GazprombankRuHomePage gazprombankRuHomePage = googleComSearchResultPage.clickGazprombankRu();
-        gazprombankRuHomePage.screenExchangeInOnlineBank();
-        gazprombankRuHomePage.checkCurrencyExchange();
+        googleComSearchResultPage.getLinkByUrlAndClick(QAMETA_URL);
+        final QametaIoHomePage qametaIoHomePage = new QametaIoHomePage(driver);
+        qametaIoHomePage.screenPricing();
+        final int cloudPrice = qametaIoHomePage.getCloudPrice();
+        final int serverPrice = qametaIoHomePage.getServerPrice();
+        assertTrue(cloudPrice > serverPrice, cloudPrice + "(cloud price) > " + serverPrice + "(server price)");
     }
 }

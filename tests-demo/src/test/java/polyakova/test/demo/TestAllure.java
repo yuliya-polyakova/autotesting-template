@@ -11,31 +11,31 @@ import org.junit.jupiter.api.Timeout;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Пример использования аннотаций allure
+ * Example of using allure annotations
  * <p>
  * https://github.com/allure-examples/allure-junit5-example
  *
  * @author Iuliia Poliakova
  */
-@DisplayName("Наименование Suite")
+@DisplayName("Name Suite")
 public class TestAllure {
     @Test
-    @Story("Наименование User Story")
-    @DisplayName("Наименование Test Case")
-    @Owner("Разработчик теста")
+    @Story("Name of User Story")
+    @DisplayName("Name of Test Case")
+    @Owner("Test author")
     @Timeout(40)
     void testOutput() {
         firstStep();
-        secondStep("значение параметра");
+        secondStep("parameter value");
     }
 
-    @Step("Описание шага")
+    @Step("Step description")
     private void firstStep() {
-        // Пример добавления файла
+        // Example of adding a file
         Allure.addAttachment("name", "image/png", getClass().getResourceAsStream("/example.png"), ".png");
     }
 
-    @Step("Описание шага с параметром \"{s}\"")
+    @Step("Description of a step with a parameter \"{s}\"")
     private void secondStep(String s) {
         assertNotNull(s);
     }

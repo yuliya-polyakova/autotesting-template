@@ -1,25 +1,25 @@
 package polyakova.test.utils;
 
 /**
- * Переменные для настройки тестов, передаваемые как переменные окружения
+ * Test setup variables passed as environment variables
  *
  * @author Iuliia Poliakova
  */
 public class SystemPropertyConst {
     /**
-     * Определяет с какого файла определяются переменные, по умолчанию environment_dev
+     * Determines from which file variables are defined, by default environment_dev
      */
     public static final String ENVIRONMENT_NAME ="environmentName";
     /**
-     * Определяет метод beforeAll будет ли удалят скриншоты, по умолчанию true(удалять старые скриншоты)
+     * Defines the beforeAll method whether screenshots will be deleted, by default true(delete old screenshots)
      */
     public static final String TEST_BEFORE_ALL_DELETE_SCREEN ="test_before_all_delete_screen";
     /**
-     * Определяет в каком браузере {@code ru.tkoinform.tests.selenium.crossbrowser.BrowserName} запускать тесты, по умолчанию CHROME
+     * Defines in which browser {@code BrowserName} to run tests, CHROME by default
      */
     public static final String TEST_BROWSER ="test_browser";
     /**
-     * Определяет размер окна {@code ru.tkoinform.tests.selenium.crossbrowser.DisplaySize}, по умолчанию не задано (на весь экран)
+     * Defines the size of the window {@code DisplaySize}, default is none (full screen)
      */
     public static final String TEST_DISPLAY_SIZE ="test_display_size";
 }

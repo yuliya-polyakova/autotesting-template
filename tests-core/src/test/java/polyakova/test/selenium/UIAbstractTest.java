@@ -25,35 +25,35 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Родительский класс для всех UI тестов
- * Перед тестом запускается браузер, доступ к которому осуществляется через переменную driver
+ * Parent class for all UI tests
+ * Before the test, a browser is launched, accessed through the driver variable
  *
  * @author Iuliia Poliakova
  */
 public abstract class UIAbstractTest {
     /**
-     * Доступ к браузеру
+     * Browser Access
      */
     protected WebDriver driver;
 
     /**
-     * Будет выполняться только один раз перед всеми тестовыми функциями в классе
+     * Will be executed only once before all test functions in the class
      *
-     * @param testInfo Информация о запускаемом тесте
+     * @param testInfo Information about the test being run
      * @throws IOException
      */
     @BeforeAll
     public static final void beforeAll(TestInfo testInfo) throws IOException {
         Boolean deleteScreen=Boolean.valueOf(System.getProperty(SystemPropertyConst.TEST_BEFORE_ALL_DELETE_SCREEN, Boolean.TRUE.toString()));
         if (deleteScreen) {
-            // удаление скринов теста перед тестом, которые были получены на предыдущем запуске
+            // deleting test screens before the test, which were received on the previous run
             final File dir = new File("report" + File.separatorChar + "screen" + File.separatorChar + testInfo.getTestClass().get().getCanonicalName().replace('.', '_'));
             FileUtils.deleteDirectory(dir);
         }
     }
 
     /**
-     * Будет выполняться перед каждой тестовой функцией в классе
+     * Will be executed before each test function in the class
      */
     @BeforeEach
     public void beforeTest() {
@@ -63,51 +63,60 @@ public abstract class UIAbstractTest {
 
         switch (browserName) {
             case CHROME:
-                // Загрузить драйвер
+                // Download driver
                 WebDriverManager.chromedriver().setup();
-                // открытие окна браузера
+                // Open browser
                 driver = new ChromeDriver();
                 break;
             case EDGE:
-                // Загрузить драйвер
+                //download driver
                 WebDriverManager.edgedriver().setup();
-                // открытие окна браузера
+                //open browser
                 driver = new EdgeDriver();
                 break;
             case OPERA:
-                // Загрузить драйвер
+                //download driver
                 WebDriverManager.operadriver().setup();
-                // открытие окна браузера
+                //open browser
                 driver = new OperaDriver();
                 break;
             case IE:
-                // Загрузить драйвер
+                //download driver
                 WebDriverManager.iedriver().setup();
-                // открытие окна браузера
+                //open browser
                 driver = new InternetExplorerDriver();
                 break;
         }
 
-        // задать размер окна
+        // set size of the browser window
         if (displaySize != null) {
             driver.manage().window().setSize(displaySize.getDimension());
         } else {
-            // задать размер окна на весь экран
+            // set size of the browser window in full screen
             driver.manage().window().maximize();
         }
-        // Установка таймаута по умолчанию
+        // setting the default timeout
         driver.manage().timeouts().implicitlyWait(AbstractPage.DEFAULT_IMPLICITLY_TIMEOUT);
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                if (driver != null) {
+                    driver.quit();
+                }
+            }
+        });
     }
 
     /**
-     * Будет выполняться после каждой тестовой функции в классе
+     * Will be executed after each test function in the class
      *
-     * @param testInfo Информация о запускаемом тесте
+     * @param testInfo Information about the running test case
      */
     @AfterEach
     public void afterTest(TestInfo testInfo) {
         if (driver != null) {
-            // сохранить скрин
+            // save screen
             if (driver instanceof TakesScreenshot) {
                 try {
                     final byte[] image = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
@@ -126,7 +135,7 @@ public abstract class UIAbstractTest {
                     e.printStackTrace();
                 }
             }
-        // закрытие окна
+            // close window
             driver.quit();
         }
     }

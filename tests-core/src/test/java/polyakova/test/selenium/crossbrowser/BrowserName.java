@@ -1,7 +1,7 @@
 package polyakova.test.selenium.crossbrowser;
 
 /**
- * Список поддерживаемых браузеров
+ * List of supported browsers
  *
  * @author Iuliia Poliakova
  */

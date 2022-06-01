@@ -8,7 +8,7 @@ import polyakova.test.selenium.page.AbstractPage;
 import polyakova.test.utils.EnvironmentVariables;
 
 /**
- * Главная страница сайта google.com
+ * Main page of google.com
  *
  * @author Iuliia Poliakova
  */
@@ -23,7 +23,7 @@ public class GoogleComHomePage extends AbstractPage {
         super(driver);
     }
 
-    @Step("Открыть https://www.google.com/")
+    @Step("Open https://www.google.com/")
     public static GoogleComHomePage openGoogleCom(WebDriver driver) throws Exception {
         driver.get(GOOGLE_COM);
         final GoogleComHomePage googleComHomePage = new GoogleComHomePage(driver);
@@ -31,13 +31,13 @@ public class GoogleComHomePage extends AbstractPage {
         return googleComHomePage;
     }
 
-    @Step("Ввести в строку поиска \"{text}\"")
+    @Step("Set in search input text: \"{text}\"")
     public void setSearchText(String text) throws Exception {
         queryTextField.sendKeys(text);
         screen();
     }
 
-    @Step("Запустить поиск")
+    @Step("Click search button")
     public GoogleComSearchResultPage clickSearchButton() {
         queryTextField.submit();
         return new GoogleComSearchResultPage(driver);

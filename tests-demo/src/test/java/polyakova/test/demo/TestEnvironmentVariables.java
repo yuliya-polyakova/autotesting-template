@@ -7,20 +7,20 @@ import polyakova.test.utils.EnvironmentVariables;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Пример использования переменных окружения, необходимых для выполнения теста
+ * Example of using the environment variables required to run the test
  * <p>
- * значения находятся в файле {@code environment_dev.properties}
+ * the values are in the file {@code environment_dev.properties}
  *
  * @author Iuliia Poliakova
  */
 public class TestEnvironmentVariables {
-    // Инициализация переменной (считывание из файла)
+    // variable initialization (reading from a file)
     public final String API_URL = EnvironmentVariables.getString("api.users.url");
 
     @Test
-    @DisplayName("Пример использования переменных окружения")
+    @DisplayName("Example of using environment variables")
     public void test() {
-        // Использование переменной
+        // using a Variable
         assertNotNull(API_URL);
     }
 }

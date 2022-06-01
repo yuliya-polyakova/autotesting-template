@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Тестирование кроссбраузерности
+ * Cross browser testing
  * <p>
- * Запуск тестов с заданной анотацией
+ * Running tests with a given annotation
  * <blockquote><pre>
  *     \u0040Tag("cross_browser")
  * </pre></blockquote>
@@ -38,7 +38,7 @@ public class CrossBrowserTest {
 
     @BeforeAll
     public static void beforeAll() throws IOException {
-        // удаление скринов теста перед тестом, которые были полученные на предыдущем запуске
+        // deleting test screens before the test, which were received at the previous run
         final File dir = new File("report" + File.separatorChar + "screen" + File.separatorChar + CrossBrowserConfigTest.class.getCanonicalName().replace('.', '_'));
         FileUtils.deleteDirectory(dir);
     }
@@ -50,9 +50,9 @@ public class CrossBrowserTest {
         final List<DynamicNode> result = new ArrayList<>();
 
         LauncherDiscoveryRequestBuilder request = LauncherDiscoveryRequestBuilder.request();
-        // поиск тестов в пакете
+        //search for tests in a package
         request.selectors(DiscoverySelectors.selectPackage("polyakova.test.demo.selenium"));
-        // тесты должня быть помеченых тегом
+        //tests must be tagged
         request.filters(TagFilter.includeTags("cross_browser"));
 
         final Launcher launcher = LauncherFactory.create();
@@ -61,15 +61,15 @@ public class CrossBrowserTest {
 
         final Set<TestIdentifier> roots = testPlan.getRoots();
         for (TestIdentifier root : roots) {
-            // классы содержащие тесты
+            //classes which includes tests
             final Set<TestIdentifier> children = testPlan.getChildren(root);
             for (TestIdentifier child : children) {
-                // методы - тест
+                //method - test
                 final Set<TestIdentifier> subChildren = testPlan.getChildren(child);
                 final List<DynamicNode> testList = new ArrayList<>();
                 for (TestIdentifier subChild : subChildren) {
                     final List<DynamicNode> subTestList = new ArrayList<>();
-                    // для каждого теста создаем необходимое количество копий настроенных на определенный браузер и разрешение
+                    //for each test, the required number of copies of settings for resolutions
                     addTest(subTestList, launcher, child.getDisplayName(), subChild, BrowserName.CHROME, DisplaySize.VGA);
                     addTest(subTestList, launcher, child.getDisplayName(), subChild, BrowserName.CHROME, DisplaySize.XGA);
                     addTest(subTestList, launcher, child.getDisplayName(), subChild, BrowserName.CHROME, DisplaySize.FHD);
@@ -88,7 +88,7 @@ public class CrossBrowserTest {
     }
 
     private static void addTest(List<DynamicNode> tests, Launcher launcher, String className, TestIdentifier testIdentifier, BrowserName browserName, DisplaySize displaySize) {
-        // к имени теста добавляем имя браузера и размер
+        // add the browser name and size to the test name
         String displayName = browserName.name() + displaySize.getWidth() + "x" + displaySize.getHeight();
         CrossBrowserConfigTest test = new CrossBrowserConfigTest(launcher, className, testIdentifier, browserName, displaySize);
         DynamicTest dynamicTest = DynamicTest.dynamicTest(displayName, test);

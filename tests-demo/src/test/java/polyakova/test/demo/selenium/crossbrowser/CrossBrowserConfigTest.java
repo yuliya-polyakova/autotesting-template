@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Часть кроссбраузерного тестирования
- * Перенастройка UI тестирование на конкретный browser и необходимое разрешение
+ * Part of cross browser testing
+ * Reconfiguring UI testing for a specific browser and required permission
  *
  * @author Iuliia Poliakova
  */
@@ -53,7 +53,7 @@ public class CrossBrowserConfigTest implements Executable {
 
         launcher.execute(request, listener);
 
-        // сохранение скринов в директорию
+        // saving screenshots to a directory
         final File dirForClass = new File("report" + File.separatorChar + "screen" + File.separatorChar + MethodHandles.lookup().lookupClass().getCanonicalName().replace('.', '_'));
         final File srcDir = new File(dirForClass, "execute");
         if (srcDir.exists()) {
@@ -61,7 +61,7 @@ public class CrossBrowserConfigTest implements Executable {
             FileUtils.moveDirectory(srcDir, destDir);
         }
 
-        // получить отчет
+        // get a report
         final TestExecutionSummary summary = listener.getSummary();
         assertEquals(1, summary.getTestsStartedCount());
 

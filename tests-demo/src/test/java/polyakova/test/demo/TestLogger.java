@@ -1,20 +1,20 @@
 package polyakova.test.demo;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Пример использования логирования
+ * Example of using logging
  *
  * @author Iuliia Poliakova
  */
 public class TestLogger {
-    private static final Logger log = LogManager.getLogger(TestLogger.class);
+    private static final Logger log = LoggerFactory.getLogger(TestLogger.class);
 
     @Test
-    @DisplayName("Пример использования логирования")
+    @DisplayName("Example of using logging")
     public void test() {
         log.info("Some text");
     }

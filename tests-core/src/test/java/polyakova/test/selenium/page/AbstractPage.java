@@ -10,6 +10,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,44 +20,48 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Общие методы для работы со страницей
+ * General methods for working with the page
  *
  * @author Iuliia Poliakova
  */
 public abstract class AbstractPage {
     /**
-     * Время ожидания (5 секунд), применяется ко всем операциям поиска элементов
+     * Timeout (5 seconds), applies to all item searches
      */
     public static final Duration DEFAULT_IMPLICITLY_TIMEOUT = Duration.ofSeconds(5);
     /**
-     * Время ожидания (2 минуты), применяется по умолчанию в методах с явным указанием ожидания
+     * Timeout (30 seconds), used by default in methods with an explicit wait
      */
     public static final int DEFAULT_EXPLICIT_TIMEOUT = 30000;
 
     /**
-     * Пакет который необходимо включить в путь к скриншоту
+     * Package to be included in screenshot path
      */
     public static final String SCREEN_INCLUDE_PACKAGE = "polyakova.test";
 
     /**
      * Selenium web driver
      */
-    protected WebDriver driver;
+    protected final WebDriver driver;
 
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
-        // TODO для модальных окон использовать SearchContextElementLocatorFactory, а в аннотации FindBy относительные пути
         PageFactory.initElements(driver, this);
     }
 
+    protected AbstractPage(WebDriver driver, WebElement panel) {
+        this.driver = driver;
+        PageFactory.initElements(new DefaultElementLocatorFactory(panel), this);
+    }
+
     /**
-     * Метод ожидает появление элемента на странице
+     * The method waits for the element to appear on the page
      *
-     * @param parent  Родитель относительно которого необходимо выполнить поиск
-     * @param by      селектор идентифицирующий элемент
-     * @param timeOut максимальное время ожидания (ms)
-     * @return элемент
-     * @throws TimeoutException если элемент не был найден в течении timeOut
+     * @param parent  The parent relative to which to search
+     * @param by      selector of identifying element
+     * @param timeOut maximum waiting time (ms)
+     * @return element
+     * @throws TimeoutException if the element was not found within timeOut
      */
     public static WebElement waitElement(SearchContext parent, By by, long timeOut) {
         WebElement result = null;
@@ -83,63 +88,63 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Метод ожидает появление элемента на странице
+     * The method waits for the element to appear on the page
      *
-     * @param parent Родитель относительно которого необходимо выполнить поиск
-     * @param by     селектор идентифицирующий элемент
-     * @return элемент
-     * @throws TimeoutException если элемент не был найден в течении timeOut
+     * @param parent The parent relative to which to search
+     * @param by     selector of identifying element
+     * @return element
+     * @throws TimeoutException if the element was not found within timeOut
      */
     protected WebElement waitElement(SearchContext parent, By by) {
         return waitElement(parent, by, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
-     * Метод ожидает появление элемента на странице
+     * The method waits for the element to appear on the page
      *
-     * @param by      селектор идентифицирующий элемент
-     * @param timeOut максимальное время ожидания (ms)
-     * @return элемент
-     * @throws TimeoutException если элемент не был найден в течении timeOut
+     * @param by      selector of identifying element
+     * @param timeOut maximum waiting time (ms)
+     * @return element
+     * @throws TimeoutException if the element was not found within timeOut
      */
     protected WebElement waitElement(By by, long timeOut) {
         return waitElement(driver, by, timeOut);
     }
 
     /**
-     * Метод ожидает появление элемента на странице
+     * The method waits for the element to appear on the page
      *
-     * @param by селектор идентифицирующий элемент
-     * @return элемент
-     * @throws TimeoutException если элемент не был найден в течении timeOut
+     * @param by selector of identifying element
+     * @return element
+     * @throws TimeoutException if the element was not found within timeOut
      */
     protected WebElement waitElement(By by) {
         return waitElement(driver, by, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
-     * Ожидание появления фрейма по frameBy и элемента в нем по elementBy.
-     * Возвращает найденный элемент или кидает TimeoutException,
-     * если элемент не был найден за {@code DEFAULT_EXPLICIT_TIMEOUT}.
+     * Waiting for the appearance of a frame by frameBy and an element in it by elementBy.
+     * Returns the found element or throws a TimeoutException,
+     * if the element was not found {@code DEFAULT_EXPLICIT_TIMEOUT}.
      *
-     * @param frameBy   селектор, идентифицирующий фрейм
-     * @param elementBy селектор, идентифицирующий элемент
-     * @return элемент
+     * @param frameBy   selector of identifying the frame
+     * @param elementBy selector of identifying the element
+     * @return element
      */
     protected WebElement waitElementInFrame(By frameBy, By elementBy) {
         return waitElementInFrame(frameBy, elementBy, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
-     * Ожидание появления фрейма по frameBy и элемента в нем по elementBy.
-     * Возвращает найденный элемент или кидает TimeoutException,
-     * если элемент не был найден за указанный timeout.
+     * Waiting for the appearance of a frame by frameBy and an element in it by elementBy.
+     * Returns the found element or throws a TimeoutException,
+     * if the element was not found the specified timeout.
      *
-     * @param frameBy   селектор, идентифицирующий фрейм
-     * @param elementBy селектор, идентифицирующий элемент
-     * @param timeout   максимальное время ожидания (ms)
-     * @return элемент
-     * @throws TimeoutException, если элемент не был найден в течении timeOut
+     * @param frameBy   selector of identifying the frame
+     * @param elementBy selector of identifying the element
+     * @param timeout   maximum waiting time (ms)
+     * @return element
+     * @throws TimeoutException, if the element was not found within timeOut
      */
     protected WebElement waitElementInFrame(By frameBy, By elementBy, long timeout) {
         long time = System.currentTimeMillis();
@@ -164,26 +169,26 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Метод ожидает появление элемента на странице и выполняет нажатие на него.
+     * The method waits for an element to appear on the page and clicks on it.
      *
-     * @param parent  Родитель, относительно которого необходимо выполнить поиск
-     * @param by      селектор, идентифицирующий элемент
-     * @param timeOut максимальное время ожидания (ms)
-     * @return элемент
-     * @throws TimeoutException, если элемент не был найден в течении timeOut
+     * @param parent  The parent relative to which to search
+     * @param by      selector of identifying the element
+     * @param timeOut maximum waiting time (ms)
+     * @return element
+     * @throws TimeoutException, if the element was not found within timeOut
      */
     protected WebElement waitElementAndClick(SearchContext parent, By by, long timeOut) {
         return waitElementAndClick(driver, parent, by, timeOut);
     }
     /**
-     * Метод ожидает появление элемента на странице и выполняет нажатие на него.
+     * The method waits for an element to appear on the page and clicks on it.
      *
      * @param driver  Selenium web driver
-     * @param parent  Родитель, относительно которого необходимо выполнить поиск
-     * @param by      селектор, идентифицирующий элемент
-     * @param timeOut максимальное время ожидания (ms)
-     * @return элемент
-     * @throws TimeoutException, если элемент не был найден в течении timeOut
+     * @param parent  The parent relative to which to search
+     * @param by      selector of identifying the element
+     * @param timeOut maximum waiting time (ms)
+     * @return element
+     * @throws TimeoutException, if the element was not found within timeOut
      */
     public static WebElement waitElementAndClick(WebDriver driver, SearchContext parent, By by, long timeOut) {
         long time = System.currentTimeMillis();
@@ -208,46 +213,46 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Выделить содержимое (Ctrl+A) и ввести текст.
+     * Select content (Ctrl+A) and enter text.
      *
-     * @param element поле ввода
-     * @param text    текст
+     * @param element input field
+     * @param text   text
      */
     protected void selectAllAndSendKeys(WebElement element, String text) {
         element.sendKeys(Keys.chord(Keys.CONTROL, "a"), text);
     }
 
     /**
-     * Метод ожидает появление элемента на странице и выполняет нажатие на него
+     * The method waits for an element to appear on the page and clicks on it.
      *
-     * @param parent Родитель, относительно которого необходимо выполнить поиск
-     * @param by     селектор, идентифицирующий элемент
-     * @return элемент
-     * @throws TimeoutException, если элемент не был найден в течении timeOut
+     * @param parent The parent relative to which to search
+     * @param by     selector of identifying the element
+     * @return element
+     * @throws TimeoutException, if the element was not found within timeOut
      */
     protected WebElement waitElementAndClick(SearchContext parent, By by) {
         return waitElementAndClick(parent, by, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
-     * Метод ожидает появление элемента на странице и выполняет нажатие на него
+     * The method waits for an element to appear on the page and clicks on it.
      *
-     * @param by селектор, идентифицирующий элемент
-     * @return элемент
-     * @throws TimeoutException, если элемент не был найден в течении timeOut
+     * @param by selector of identifying the element
+     * @return element
+     * @throws TimeoutException, if the element was not found within timeOut
      */
     protected WebElement waitElementAndClick(By by) {
         return waitElementAndClick(driver, by, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
-     * Метод ожидает скрытия элемента со страницы
+     * The method expects the element to be hidden from the page
      *
-     * @param by      селектор идентифицирующий элемент
-     * @param timeOut максимальное время ожидания (ms)
-     * @throws TimeoutException если элемент не был скрыт в течении указанного времени
+     * @param by      selector of identifying element
+     * @param timeOut maximum waiting time (ms)
+     * @throws TimeoutException if the element has not been hidden within the specified time
      */
-    public void waitInvisibilityElement(By by, long timeOut) {
+    protected void waitInvisibilityElement(By by, long timeOut) {
         boolean hide;
         long time = System.currentTimeMillis();
         final WebDriver.Timeouts timeouts = driver.manage().timeouts();
@@ -273,22 +278,22 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Метод ожидает скрытия элемента со страницы
+     * The method expects the element to be hidden from the page
      *
-     * @param by селектор идентифицирующий элемент
-     * @throws TimeoutException если элемент не был скрыт в течении 30 секунд
+     * @param by selector of identifying element
+     * @throws TimeoutException if the element has not been hidden within 30 seconds
      */
-    public void waitInvisibilityElement(By by) {
+    protected void waitInvisibilityElement(By by) {
         waitInvisibilityElement(by, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
-     * Метод ожидает скрытия элемента со страницы
+     * The method expects the element to be hidden from the page
      *
-     * @param element элемент
-     * @throws TimeoutException если элемент не был скрыт в течении 2-х минут
+     * @param element element
+     * @throws TimeoutException if the element has not been hidden within 2 minutes
      */
-    public void waitInvisibilityElement(WebElement element) {
+    protected void waitInvisibilityElement(WebElement element) {
         long time = System.currentTimeMillis();
         boolean hide;
         do {
@@ -310,11 +315,11 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Сделать снимок элемента
-     * Снимок складывается в папки соответствующие стектрейсу
+     * Take a screenshot of an element
+     * The screenshot is folded into folders to correspond of the stack trace
      *
-     * @param element элемент
-     * @return файл со снимком
+     * @param element element
+     * @return screenshot file
      * @throws Exception
      */
     public static File screen(TakesScreenshot element) throws Exception {
@@ -358,10 +363,10 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Снять снимок экрана
-     * Снимок складывается в папки соответствующие стектрейсу
+     * Take a screenshot of an element
+     * The screenshot is folded into folders to correspond of the stack trace
      *
-     * @return файл со снимком
+     * @return screenshot file
      * @throws Exception
      */
     public File screen() throws Exception {
@@ -369,7 +374,7 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Переключиться на последнее открытое окно
+     * Switch to last opened window
      */
     protected void switchToLastTab() {
         final Iterator<String> iterator = driver.getWindowHandles().iterator();
@@ -381,12 +386,12 @@ public abstract class AbstractPage {
     }
 
     /**
-     * Переключиться на окно с указанным title
+     * Switch to the window with the title
      */
     protected void waitTab(String title, boolean ignoreCase) {
         long time = System.currentTimeMillis();
 
-        while (System.currentTimeMillis() - time < DEFAULT_IMPLICITLY_TIMEOUT.toMillis()) {
+        while (System.currentTimeMillis() - time < DEFAULT_EXPLICIT_TIMEOUT) {
             for (String window : driver.getWindowHandles()) {
                 if ((ignoreCase && title.equalsIgnoreCase(driver.switchTo().window(window).getTitle())) ||
                         title.equals(driver.switchTo().window(window).getTitle())) {
