@@ -193,22 +193,22 @@ public abstract class AbstractPage {
     public static WebElement waitElementAndClick(WebDriver driver, SearchContext parent, By by, long timeOut) {
         long time = System.currentTimeMillis();
         WebElement result = null;
-            boolean click = false;
+        boolean click = false;
         final WebDriver.Timeouts timeouts = driver.manage().timeouts();
         final Duration implicitWaitTimeout = timeouts.getImplicitWaitTimeout();
         timeouts.implicitlyWait(Duration.ofMillis(100));
-            while (!click && System.currentTimeMillis() - time < timeOut) {
-                try {
+        while (!click && System.currentTimeMillis() - time < timeOut) {
+            try {
                 result = parent.findElement(by);
-                    result.click();
-                    click = true;
-                } catch (Exception e) {
-                    }
-                }
-        timeouts.implicitlyWait(implicitWaitTimeout);
-            if (!click) {
-                throw new TimeoutException("Failed to click on element by:" + by);
+                result.click();
+                click = true;
+            } catch (Exception e) {
             }
+        }
+        timeouts.implicitlyWait(implicitWaitTimeout);
+        if (!click) {
+            throw new TimeoutException("Failed to click on element by:" + by);
+        }
         return result;
     }
 

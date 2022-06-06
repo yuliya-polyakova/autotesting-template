@@ -17,7 +17,7 @@ public class GoogleComHomePage extends AbstractPage {
     public final static String GOOGLE_COM = EnvironmentVariables.getString("ui.google.url");
 
     @FindBy(xpath = "//input[@name='q']")
-    public WebElement queryTextField;
+    private WebElement queryTextField;
 
     public GoogleComHomePage(WebDriver driver) {
         super(driver);
