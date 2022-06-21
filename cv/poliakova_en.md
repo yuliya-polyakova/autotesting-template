@@ -19,15 +19,15 @@ placement of MSW.
 Responsibilities:
 
 - Develop QA strategy;
-- Create and configure testing processes,
-- Describe process of transferring tasks to testing,
+- Create and configure testing processes
+- Describe process of transferring tasks to testing
 - Describe development methodology
 - Set up business processes and workflow in youtrack
-- Perform static testing based on documentation;
-- Compile checklists, test cases and test plan (Allure TestOps);
-- Create UI tests on Selenium+Java (JUnit);
+- Perform static testing based on documentation
+- Compile checklists, test cases and test plan (Allure TestOps)
+- Create UI tests on Selenium+Java (JUnit)
 - Create framework for automated tests of the ARM driver mobile application (Appium+Selenium+Java)
-- Automate regression testing and report generation using the Jenkins scheduler;
+- Automate regression testing and report generation using the Jenkins scheduler
 - Select candidates for the team
 
 ---
@@ -41,14 +41,14 @@ Testing of the bank's integrations with ERP systems: 1C, SAP.
 <br>
 Responsibilities:
 
-- Designed QA strategy;
-- Created and configured testing processes,
-- Described process of transferring tasks to testing,
-- Performed static testing according to documentation;
-- Compiled checklists, test cases, test plan (Adaptavista);
-- Created load tests on jmeter;
-- Created UI tests on Selenium+JAVA (JUnit);
-- Automated regression testing and report generation using the Git Pipeline scheduler;
+- Designed QA strategy
+- Created and configured testing processes
+- Described process of transferring tasks to testing
+- Performed static testing according to documentation
+- Compiled checklists, test cases, test plan (Adaptavista)
+- Created load tests on jmeter
+- Created UI tests on Selenium+JAVA (JUnit)
+- Automated regression testing and report generation using the Git Pipeline scheduler
 - Selected candidates for the team
 
 ---
@@ -63,18 +63,18 @@ Testing the loyalty program.
 <br>
 Responsibilities:
 
-- Designed QA strategy;
+- Designed QA strategy
 - Create and configure testing processes, integration into the development process (youtrack)
 - Described process of transferring tasks to testing
 - Planned tasks for testing, evaluation
-- Performed static testing based on documentation;
-- Compiled of checklists, test cases, test plan;
-- Created tests on jmeter;
-- Created tests for open-api (java);
-- Created UI tests on Selenium+java (JUnit/TestNG);
+- Performed static testing based on documentation
+- Compiled of checklists, test cases, test plan
+- Created tests on jmeter
+- Created tests for open-api (java)
+- Created UI tests on Selenium+java (JUnit/TestNG)
 - Created tests for a mobile application (Appium+Selenium+java)
-- Generated of test data;
-- Automated of regression testing and report generation using the Git Pipeline scheduler;
+- Generated of test data
+- Automated of regression testing and report generation using the Git Pipeline scheduler
 - Selected candidates for the team
 
 ---
@@ -92,22 +92,22 @@ Testing software for stores, gas stations and other retailers (cash registers, b
 <br>
 Responsibilities:
 
-- Designed a QA strategy;
-- Performed static testing based on documentation;
-- Compiled checklists, test cases, test plan;
-- Created tests on jmeter;
-- Created UI tests in Java+Selenium (JUnit/TestNG);
-- Created SOAP, REST API tests;
-- Created of integration tests (using database access, queue, ssh connection);
-- Generated of test data;
+- Designed a QA strategy
+- Performed static testing based on documentation
+- Compiled checklists, test cases, test plan
+- Created tests on jmeter
+- Created UI tests in Java+Selenium (JUnit/TestNG)
+- Created SOAP, REST API tests
+- Created of integration tests (using database access, queue, ssh connection)
+- Generated of test data
 - Automated of regression testing and report generation using
 - Configured Jenkins scheduler and Microsoft Azure Pipeline
-- Generated an Allure report;
-- Compiled of a dashboard on bugs as a result of testing (including prioritization);
+- Generated an Allure report
+- Compiled of a dashboard on bugs as a result of testing (including prioritization)
 - Planned sprint for a team of 4 people
-- Checked the execution of the team's tasks;
-- Selected candidates for the team;
-- Trained Junior testers.
+- Checked the execution of the team's tasks
+- Selected candidates for the team
+- Trained Junior testers
 
 ---
 
@@ -119,9 +119,9 @@ Online bookmaker
 <br>
 Responsibilities:
 
-- Tested the gambling system: lotteries, virtual sports: horse racing, football, basketball;
+- Tested the gambling system: lotteries, virtual sports: horse racing, football, basketball
 - Prepared of a test plan for documentation, creation of checklists, including regression testing, negative testing via
-  API (Postman, Jmeter).
+  API (Postman, Jmeter)
 
 ---
 
@@ -134,11 +134,11 @@ Responsibilities:
 
 - Controlled over compliance with the quality of PROVOCATION LABS software products, including the flagship products
   Wordminer (a system for analyzing responses as a result of user surveys), Customer Feedback Manager (a system for
-  conducting user surveys through various channels: phone, sms, web);
-- Compiled test cases, performed tests on the developed test cases;
-- Successfully conducted regression and complex testing;
-- Registered defects in the bug tracker;
-- Tracked defects during their life cycle.
+  conducting user surveys through various channels: phone, sms, web)
+- Compiled test cases, performed tests on the developed test cases
+- Successfully conducted regression and complex testing
+- Registered defects in the bug tracker
+- Tracked defects during their life cycle
 
 ---
 
@@ -150,9 +150,9 @@ The MAGzone information and Trade portal is a multifunctional platform for onlin
 <br>
 Responsibilities:
 
-- Tested websites according to approved test plans;
-- Prepared of test plans;
-- Prepared of reports on conducted test activities.
+- Tested websites according to approved test plans
+- Prepared of test plans
+- Prepared of reports on conducted test activities
 
 ---
 
@@ -162,12 +162,12 @@ Responsibilities:
 <br>
 Responsibilities:
 
-- Tested a desktop application;
-- Tested warehouse inventory accounting system;
-- Verified compliance with the requirements stated for the product and the functionality actually implemented;
-- Performed user interface testing;
-- Tested new functionality;
-- Performed regression, positive and negative testing;
+- Tested a desktop application
+- Tested warehouse inventory accounting system
+- Verified compliance with the requirements stated for the product and the functionality actually implemented
+- Performed user interface testing
+- Tested new functionality
+- Performed regression, positive and negative testing
 
 ---
 
