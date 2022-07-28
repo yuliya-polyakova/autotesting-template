@@ -1,11 +1,46 @@
 # Iuliia Poliakova
+
 Phone: +16475013063
-<br>
+
 Email: juliettablack@gmail.com
-<br>
 
+## About my role
+I am QA with experience for the design of the automation framework and architecture. 
+I involve in building and maintaining the software solutions used to execute functional, integration and regression test suites. 
+Also, I interact with the development team to ensure that the products meet set quality standards throughout the software development lifecycle. 
+I have solid skills in development, quality assurance planning and execution & coordinated testing support activities.
 
-## Work Summary
+## Summary Experience:
+- 15 years of software testing experience
+- Solid understanding of Quality Assurance testing principles and processes
+- Experience working in an Agile: Scrum or Kanban.
+- Full cycle testing from designing manual tests, developing scripts and execution
+- Develop QA strategy
+- Create and configure testing processes
+- Experience in building processes in a team
+- Bug lifecycle management
+- Experience frontend manual/auto testing
+- Experience testing backend services (monolithic and distributed services) 
+- API testing (JSON, REST, SOAP), using tools such as REST Assured, Postman, JMeter and SoapUI (performance testing, and writing scripts)
+- Understanding of database models (Relational/ Document based) and experience with GUI tools to interact with them (Working knowledge of SQL)
+- Experience with relational databases using JDBC (PostgreSQL, MySql)
+- Working with queues (ActiveMQ, Kafka, IBM MQ, RabbitMQ)
+- Experience in Java, JUnit/TestNG, Selenium, Appium.
+- CI/CD Jenkins, Gitlab, Azure DevOps
+- Experience in TDD, continuous integration, and code review practice.
+- Using bug tracking (JIRA, Azure, Redmine, YouTrack)
+- Using test case management tools (TestRail, Allure TestOps, Azure Test Plans)
+- Experience testing and working with multi browser and mobile device systems
+- Identify and monitor key performance and quality metrics.
+- Identify, record, thoroughly document and track bugs and defects.
+- Experienced using Version Control such as Git
+- Writing performance tests for api endpoints.
+- Work in Linux-based systems, using command-line tools for debugging, troubleshooting, and log analysis.
+- Experience of managing a team of 10 QA
+- Select candidates for the team
+- Training Junior testers
+
+## Work experiences
 ***Head of Testing Department*** (Remote work)
 <br>
 **SMW-Inform** (November 2021 - present)
@@ -177,4 +212,4 @@ Appium, Kafka
 **Education**: 2007, Donetsk National Technical University, Donetsk (Ukraine)
 Software of automated systems
 
-**Languages**: Ukraine, Russia, English 
+**Languages**:  English, Ukrainian, Russian
