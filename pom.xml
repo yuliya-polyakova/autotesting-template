@@ -44,6 +44,7 @@
         <module>tests-core</module>
         <module>tests-demo</module>
         <module>tests-statistic</module>
+        <module>tests-tools</module>
     </modules>
 
     <dependencyManagement>

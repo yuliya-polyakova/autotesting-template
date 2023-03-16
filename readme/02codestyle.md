@@ -18,7 +18,8 @@ The first letter must be lowercase, the first letters of internal words must be 
 
 Constant names are made up of all capital letters separated into words by underscores.
 
-The class field responsible for the input element in the name must indicate the type of the field (for example, areaNameInput, saveButton)
+The class field responsible for the input element in the name must indicate the type of the field (for example, areaNameInput, saveButton).
+For the template codes for fields, you can use the utility ***GenerateSeleniumField***, specifying the field name and type, the field declaration code and methods of interaction with it are formed
 
 ## Class methods
 The first letter must be lowercase, the first letters of internal words must be uppercase.

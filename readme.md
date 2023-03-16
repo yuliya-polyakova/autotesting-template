@@ -42,3 +42,9 @@ Setting up for other environment
 ```
 mvn clean test --projects tests-demo --also-make -DenvironmentName={environment_file_name}
 ```
+
+Run utility ***GenerateSeleniumField***
+
+```
+mvn compile exec:java --projects tests-tools -Dexec.mainClass=polyakova.tests.tools.selenium.GenerateSeleniumField 
+```
