@@ -29,11 +29,9 @@ If a condition is required, add "By" and the condition itself, for example `clic
 
 ## Class structure
 1. Class constants
-2. Class fields
+2. Class fields and methods of interaction with it
    1. For Page classes, the order of the fields must correspond to the order of the elements on the screen (top to bottom, left to right)
 3. Class constructor
-4. Class Methods
-   1. For Page classes, the order of methods must correspond to the order of the elements on the screen (top to bottom, left to right)
 
 ## Variables inside a method
 Variable names must start with a lowercase letter, internal words with a capital letter.

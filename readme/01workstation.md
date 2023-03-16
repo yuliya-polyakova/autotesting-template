@@ -1,7 +1,7 @@
 Preparing a working computer
 
 1. Chrome https://www.google.com/intl/ru_ru/chrome/
-   2 Java
+2. Java
    1. Install java 11 https://adoptium.net/archive.html?variant=openjdk11,
    2. Register in environment variables https://java-lessons.ru/first-steps/java-home
       1. JAVA_HOME
@@ -19,17 +19,17 @@ Preparing a working computer
    2. Check the correct installation
       > git version
 5. Development environment
-   1. idea intellij Community https://www.jetbrains.com/en-us/idea/download/
+   1. IntelliJ IDEA Community https://www.jetbrains.com/en-us/idea/download/
 6. Download project
-   1. Generate ssh key and add to git https://gitlab.site.name/tests/-/profile/keys
+   1. <!-- Generate ssh key and add to git https://gitlab.site.name/tests/-/profile/keys) -->
    2. Clone the repository
-      >git clone https://gitlab.site.name/tests.git
+      >git clone https://github.com/yuliya-polyakova/autotesting-template.git
 7. Working with idea
    1. Open `pom.xml` from directory as a project
    2. Set up the project ![workstation7_2.png](./img/workstation7_2.png)
       1. Specify the java used ![workstation7_2_1.png](./img/workstation7_2_1.png)
       2. Specify encoding ![workstation7_2_2.png](./img/workstation7_2_2.png)
-      3Setting up the transition to tickets
+      3. Setting up the transition to tickets
          1. In the menu "File" - "Settings..." - "Version Control" - "Issue Navigation" - "Add Issue Navigation Link" ![workstation7_2_4_1.png](./img/workstation7_2_4_1.png)
          2. Enter the rules for switching to Youtrack ![workstation7_2_4_2.png](./img/workstation7_2_4_2.png)
             1. Issue Id: TESTING-\d+
@@ -42,6 +42,9 @@ Preparing a working computer
       4. To run a specific test, on the name of the test method, right-click, select the `Debug` item in the context menu
       5. The project will compile and the code will run, execution will break at the breakpoint
       6. To perform the next test step, press F8
-8. Additional may be needed
+8. JMeter
+   1. Download JMeter https://jmeter.apache.org/download_jmeter.cgi
+   2. распаковать
+9. Additional may be needed
    1. Text editor `notepad++` https://notepad-plus-plus.org/downloads/
    2. Screen capture program `lightshot` https://app.prntscr.com/

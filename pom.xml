@@ -14,21 +14,36 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Logger -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <slf4j.version>2.0.6</slf4j.version>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <logback.version>1.4.5</logback.version>
         <!-- JUnit -->
-        <junit.version>5.8.2</junit.version>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <junit.version>5.9.2</junit.version>
         <!-- Allure -->
-        <aspectj.version>1.9.8</aspectj.version>
-        <allure.version>2.18.1</allure.version>
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <aspectj.version>1.9.19</aspectj.version>
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
+        <allure.version>2.21.0</allure.version>
         <!-- Selenium -->
-        <selenium.version>4.2.0</selenium.version>
-        <webdrivermanager.version>5.2.0</webdrivermanager.version>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <selenium.version>4.8.1</selenium.version>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <!-- Appium -->
-        <appium.version>8.1.0</appium.version>
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+        <appium.version>8.3.0</appium.version>
+        <!-- XLSX -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <poi.version>5.2.3</poi.version>
     </properties>
 
     <modules>
         <module>tests-core</module>
         <module>tests-demo</module>
+        <module>tests-statistic</module>
     </modules>
 
     <dependencyManagement>
@@ -44,13 +59,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
+                <version>${slf4j.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.11</version>
+                <version>${logback.version}</version>
         </dependency>
         <!-- JUnit -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
@@ -59,12 +74,24 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
         </dependency>
+            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
         <!-- Allure -->
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>${allure.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
         </dependency>
         <!-- Selenium -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -91,6 +118,13 @@
                     <artifactId>selenium-java</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- XLSX -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
         </dependency>
     </dependencies>
     </dependencyManagement>

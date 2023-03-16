@@ -1,0 +1,21 @@
+@startuml
+[*] -[#blue]-> Open
+Open: Primary task status
+Open -[#blue]-> In_Progress
+
+In_Progress: Working on the task
+In_Progress -[#blue]-> Resolved
+In_Progress -[#red]-> Open
+In_Progress --> Blocked
+
+Blocked: The task is blocked
+Blocked --> Open
+
+Resolved : Task was tested, QA lead verification is required
+Resolved -[#blue]-> Closed
+Resolved -[#red]-> Open : Reopen
+
+Closed: Verified
+Closed -[#blue]-> [*]
+Closed -[#red]-> Open : Reopen
+@enduml

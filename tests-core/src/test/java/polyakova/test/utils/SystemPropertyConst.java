@@ -22,4 +22,8 @@ public class SystemPropertyConst {
      * Defines the size of the window {@code DisplaySize}, default is none (full screen)
      */
     public static final String TEST_DISPLAY_SIZE ="test_display_size";
+    /**
+     * Defines the window visible or background (headless), default is true (full visible)
+     */
+    public static final String TEST_DISPLAY_VISIBLE = "test_display_visible";
 }

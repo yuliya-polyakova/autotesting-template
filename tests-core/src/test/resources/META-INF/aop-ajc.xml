@@ -1,0 +1,5 @@
+<aspectj>
+    <aspects>
+        <aspect name="polyakova.test.log.Steps2LogAspects"/>
+    </aspects>
+</aspectj>

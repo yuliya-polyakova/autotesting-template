@@ -1,7 +1,7 @@
 1. Установить Android Studio
    > https://developer.android.com/studio
-   2. Запустить Android Studio
-   3. Добавить эмулятор
+   1. Запустить Android Studio
+   2. Добавить эмулятор
       1. More Actions ![More Actions](img/AndroidStudioMoreActions.png)
       2. Virtual Device Manager
       3. Create device ![Create Device](img/AndroidStudioCreateDevice.png)
@@ -10,7 +10,7 @@
          1. Download
          2. Next
          3. Finish
-   4. Запустить эмулятор ![DeviceRun](img/AndroidStudioCreateDeviceRun.png)
+   3. Запустить эмулятор ![DeviceRun](img/AndroidStudioCreateDeviceRun.png)
 2. Установить Appium
    > https://github.com/appium/appium-desktop/releases
    1. Запустить Appium Server ![Appium Server GUI](img/AppiumServerGUI.png)

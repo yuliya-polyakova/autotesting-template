@@ -2,6 +2,7 @@ package polyakova.test.demo.selenium;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import polyakova.test.demo.selenium.page.GoogleComHomePage;
 import polyakova.test.demo.selenium.page.GoogleComSearchResultPage;
@@ -35,7 +36,7 @@ public class TestSelenium extends UIAbstractTest {
      */
     @Test
     @DisplayName("Check account price")
-    @Tag("cross_browser")
+    @Tags(@Tag("cross_browser"))
     public void test() throws Exception {
         final GoogleComHomePage googleComHomePage = GoogleComHomePage.openGoogleCom(driver);
         googleComHomePage.setSearchText("alluretestops");

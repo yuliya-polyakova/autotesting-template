@@ -1,7 +1,9 @@
 package polyakova.test.selenium.page;
 
 import io.qameta.allure.Allure;
+import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.SearchContext;
@@ -68,11 +70,17 @@ public abstract class AbstractPage {
         long time = System.currentTimeMillis();
         while (result == null && System.currentTimeMillis() - time < timeOut) {
             try {
-                result = parent.findElement(by);
-                if (!result.isEnabled()) {
+                List<WebElement> elements = parent.findElements(by);
+                for (WebElement element : elements) {
+                    if (element.isEnabled() && element.isDisplayed()) {
+                        if (result == null) {
+                            result = element;
+                        } else {
+                            // more than one match found
                     result = null;
-                } else if (!result.isDisplayed()) {
-                    result = null;
+                            break;
+                        }
+                    }
                 }
             } catch (Exception e) {
                 try {
@@ -95,7 +103,7 @@ public abstract class AbstractPage {
      * @return element
      * @throws TimeoutException if the element was not found within timeOut
      */
-    protected WebElement waitElement(SearchContext parent, By by) {
+    public static WebElement waitElement(SearchContext parent, By by) {
         return waitElement(parent, by, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
@@ -177,35 +185,31 @@ public abstract class AbstractPage {
      * @return element
      * @throws TimeoutException, if the element was not found within timeOut
      */
-    protected WebElement waitElementAndClick(SearchContext parent, By by, long timeOut) {
-        return waitElementAndClick(driver, parent, by, timeOut);
-    }
-    /**
-     * The method waits for an element to appear on the page and clicks on it.
-     *
-     * @param driver  Selenium web driver
-     * @param parent  The parent relative to which to search
-     * @param by      selector of identifying the element
-     * @param timeOut maximum waiting time (ms)
-     * @return element
-     * @throws TimeoutException, if the element was not found within timeOut
-     */
-    public static WebElement waitElementAndClick(WebDriver driver, SearchContext parent, By by, long timeOut) {
+    public static WebElement waitElementAndClick(SearchContext parent, By by, long timeOut) {
         long time = System.currentTimeMillis();
         WebElement result = null;
         boolean click = false;
-        final WebDriver.Timeouts timeouts = driver.manage().timeouts();
-        final Duration implicitWaitTimeout = timeouts.getImplicitWaitTimeout();
-        timeouts.implicitlyWait(Duration.ofMillis(100));
         while (!click && System.currentTimeMillis() - time < timeOut) {
             try {
-                result = parent.findElement(by);
+                List<WebElement> elements = parent.findElements(by);
+                for (WebElement element : elements) {
+                    if (element.isEnabled() && element.isDisplayed()) {
+                        if (result == null) {
+                            result = element;
+                        } else {
+                            // more than one match found
+                            result = null;
+                            break;
+                        }
+                    }
+                }
+                if (result != null) {
                 result.click();
                 click = true;
+                }
             } catch (Exception e) {
             }
         }
-        timeouts.implicitlyWait(implicitWaitTimeout);
         if (!click) {
             throw new TimeoutException("Failed to click on element by:" + by);
         }
@@ -291,9 +295,10 @@ public abstract class AbstractPage {
      * The method expects the element to be hidden from the page
      *
      * @param element element
+     * @param timeOut maximum waiting time (ms)
      * @throws TimeoutException if the element has not been hidden within 2 minutes
      */
-    protected void waitInvisibilityElement(WebElement element) {
+    protected void waitInvisibilityElement(WebElement element, long timeOut) {
         long time = System.currentTimeMillis();
         boolean hide;
         do {
@@ -308,10 +313,20 @@ public abstract class AbstractPage {
             } catch (Exception ignore) {
                 hide = true;
             }
-        } while (!hide && System.currentTimeMillis() - time < DEFAULT_EXPLICIT_TIMEOUT);
+        } while (!hide && System.currentTimeMillis() - time < timeOut);
         if (!hide) {
             throw new TimeoutException("Element not hide:" + element);
         }
+    }
+
+    /**
+     * The method expects the element to be hidden from the page
+     *
+     * @param element element
+     * @throws TimeoutException if the element has not been hidden within 2 minutes
+     */
+    protected void waitInvisibilityElement(WebElement element) {
+        waitInvisibilityElement(element, DEFAULT_EXPLICIT_TIMEOUT);
     }
 
     /**
@@ -376,25 +391,26 @@ public abstract class AbstractPage {
     /**
      * Switch to last opened window
      */
-    protected void switchToLastTab() {
+    protected WebDriver switchToLastTab() {
         final Iterator<String> iterator = driver.getWindowHandles().iterator();
         String last = null;
         while (iterator.hasNext()) {
             last = iterator.next();
         }
-        driver.switchTo().window(last);
+        return driver.switchTo().window(last);
     }
 
     /**
      * Switch to the window with the title
      */
-    protected void waitTab(String title, boolean ignoreCase) {
+    protected void waitTab(String expectedTitle, boolean ignoreCase) {
         long time = System.currentTimeMillis();
 
         while (System.currentTimeMillis() - time < DEFAULT_EXPLICIT_TIMEOUT) {
             for (String window : driver.getWindowHandles()) {
-                if ((ignoreCase && title.equalsIgnoreCase(driver.switchTo().window(window).getTitle())) ||
-                        title.equals(driver.switchTo().window(window).getTitle())) {
+                final String title = driver.switchTo().window(window).getTitle();
+                if ((ignoreCase && expectedTitle.equalsIgnoreCase(title)) ||
+                        expectedTitle.equals(title)) {
                     return;
                 }
             }
@@ -403,6 +419,30 @@ public abstract class AbstractPage {
             } catch (InterruptedException ignore) {
             }
         }
-        throw new TimeoutException("Failed to wait tab by title:" + title);
+        throw new TimeoutException("Failed to wait tab by title:" + expectedTitle);
+    }
+
+    /**
+     * Saving html and screen for the specified time
+     *
+     * @param driver
+     * @param dir    target directory for saving html files
+     * @param time
+     */
+    public static void debug(WebDriver driver, File dir, long time) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        long start = System.currentTimeMillis();
+        int i = 0;
+        while (System.currentTimeMillis() - start < time) {
+            Object r = js.executeScript("return document.documentElement.outerHTML");
+            try {
+                try (final FileOutputStream outputStream = new FileOutputStream(new File(dir, "t" + i + ".html"))) {
+                    IOUtils.write(r.toString(), outputStream);
+                }
+                screen((TakesScreenshot) driver);
+            } catch (Exception e) {
+            }
+            i++;
+        }
     }
 }

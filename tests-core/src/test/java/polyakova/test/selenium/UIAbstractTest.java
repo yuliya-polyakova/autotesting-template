@@ -11,9 +11,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import polyakova.test.selenium.crossbrowser.BrowserName;
 import polyakova.test.selenium.crossbrowser.DisplaySize;
 import polyakova.test.selenium.page.AbstractPage;
@@ -23,6 +25,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Parent class for all UI tests
@@ -43,13 +47,23 @@ public abstract class UIAbstractTest {
      * @throws IOException
      */
     @BeforeAll
-    public static final void beforeAll(TestInfo testInfo) throws IOException {
-        Boolean deleteScreen=Boolean.valueOf(System.getProperty(SystemPropertyConst.TEST_BEFORE_ALL_DELETE_SCREEN, Boolean.TRUE.toString()));
+    public static void beforeAll(TestInfo testInfo) throws IOException {
+        boolean deleteScreen=Boolean.valueOf(System.getProperty(SystemPropertyConst.TEST_BEFORE_ALL_DELETE_SCREEN, Boolean.TRUE.toString()));
         if (deleteScreen) {
             // deleting test screens before the test, which were received on the previous run
             final File dir = new File("report" + File.separatorChar + "screen" + File.separatorChar + testInfo.getTestClass().get().getCanonicalName().replace('.', '_'));
             FileUtils.deleteDirectory(dir);
         }
+    }
+
+    /**
+     * Get a folder for downloading files
+     *
+     * @return directory
+     */
+    public static File getDownloadDirectory() {
+        File tmpdir = new File(System.getProperty("java.io.tmpdir"));
+        return tmpdir;
     }
 
     /**
@@ -60,13 +74,38 @@ public abstract class UIAbstractTest {
         BrowserName browserName = BrowserName.valueOf(System.getProperty(SystemPropertyConst.TEST_BROWSER, BrowserName.CHROME.name()));
         String testDisplaySize = System.getProperty(SystemPropertyConst.TEST_DISPLAY_SIZE);
         DisplaySize displaySize = (testDisplaySize != null) ? DisplaySize.valueOf(testDisplaySize) : null;
+        Boolean displayVisible = "true".equalsIgnoreCase(System.getProperty(SystemPropertyConst.TEST_DISPLAY_VISIBLE, "true"));
 
         switch (browserName) {
             case CHROME:
                 // Download driver
                 WebDriverManager.chromedriver().setup();
+                ChromeOptions options = new ChromeOptions();
+                if (!displayVisible) {
+                    options.addArguments("--headless");
+                    if (displaySize == null) {
+                        displaySize = DisplaySize.XGA;
+                    }
+                    options.addArguments("--window-size=" + displaySize.getWidth() + "," + displaySize.getHeight());
+                }
+                Map<String, Object> chromePrefs = new HashMap<>();
+                chromePrefs.put("download.default_directory", getDownloadDirectory().getAbsolutePath());
+                options.setExperimentalOption("prefs", chromePrefs);
+                options.addArguments("--remote-allow-origins=*");
                 // Open browser
-                driver = new ChromeDriver();
+                driver = new ChromeDriver(options);
+                break;
+            case SAFARI:
+                //download driver
+                WebDriverManager.safaridriver().setup();
+                //open browser
+                driver = new SafariDriver();
+                break;
+            case FIREFOX:
+                //download driver
+                WebDriverManager.firefoxdriver().setup();
+                //open browser
+                driver = new FirefoxDriver();
                 break;
             case EDGE:
                 //download driver
@@ -78,7 +117,7 @@ public abstract class UIAbstractTest {
                 //download driver
                 WebDriverManager.operadriver().setup();
                 //open browser
-                driver = new OperaDriver();
+                driver = new ChromeDriver();
                 break;
             case IE:
                 //download driver
@@ -88,12 +127,14 @@ public abstract class UIAbstractTest {
                 break;
         }
 
+        if (displayVisible) {
         // set size of the browser window
         if (displaySize != null) {
             driver.manage().window().setSize(displaySize.getDimension());
         } else {
             // set size of the browser window in full screen
             driver.manage().window().maximize();
+        }
         }
         // setting the default timeout
         driver.manage().timeouts().implicitlyWait(AbstractPage.DEFAULT_IMPLICITLY_TIMEOUT);
