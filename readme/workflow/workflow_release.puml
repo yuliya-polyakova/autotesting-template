@@ -1,21 +1,17 @@
 @startuml
 hide empty description
 [*] -[#blue]-> OPEN
-
 OPEN: Primary task status
 OPEN -[#blue]-> IN_PROGRESS
 
 IN_PROGRESS: Working on the task
-IN_PROGRESS -[#blue]-> RESOLVED
+IN_PROGRESS -[#blue]-> RELEASED_TO_TEST
 IN_PROGRESS -[#red]-> OPEN
 IN_PROGRESS --> BLOCKED
 
-RESOLVED: Task was tested,\nQA lead verification is required
-RESOLVED -[#blue]-> CLOSED
-RESOLVED -[#red]-> OPEN
-
-CLOSED: Verified
-CLOSED -[#blue]-> [*]
-
 BLOCKED --> OPEN
+
+RELEASED_TO_TEST -[#blue]-> RELEASED_TO_PRODUCTION
+
+RELEASED_TO_PRODUCTION -[#blue]-> [*]
 @enduml

@@ -1,0 +1,33 @@
+@startuml
+hide empty description
+[*] -[#blue]-> OPEN
+
+OPEN: Primary task status
+OPEN -[#blue]-> IN_PROGRESS
+OPEN -[#red]-> REJECTED
+
+IN_PROGRESS: Working on the task\nin a separate branch
+IN_PROGRESS -[#blue]-> CODE_REVIEW
+IN_PROGRESS -[#red]-> OPEN
+IN_PROGRESS --> BLOCKED
+IN_PROGRESS -[#red]-> REJECTED
+
+CODE_REVIEW: Development is completed,\nWait checking code in pull request
+CODE_REVIEW -[#blue]-> READY_FOR_TESTING
+CODE_REVIEW -[#red]-> OPEN
+
+READY_FOR_TESTING: Test task has been created
+READY_FOR_TESTING -[#blue]-> RESOLVED
+READY_FOR_TESTING -[#red]-> OPEN
+
+RESOLVED: Code in master
+RESOLVED -[#blue]-> CLOSED
+
+CLOSED: Released
+CLOSED -[#blue]-> [*]
+CLOSED -[#red]-> OPEN
+
+BLOCKED --> OPEN
+
+REJECTED -[#red]-> [*]
+@enduml
